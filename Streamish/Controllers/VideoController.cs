@@ -11,22 +11,15 @@ namespace Streamish.Controllers
     public class VideoController : ControllerBase
     {
         private readonly IVideoRepository _videoRepository;
-        private readonly IUserProfileRepository _userProfileRepository;
-        public VideoController(IVideoRepository videoRepository, IUserProfileRepository userProfileRepository)
+        public VideoController(IVideoRepository videoRepository)
         {
             _videoRepository = videoRepository;
-            _userProfileRepository = userProfileRepository;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
             var videos = _videoRepository.GetAll();
-
-            foreach (var video in videos)
-            {
-                video.UserProfile = _userProfileRepository.GetById(video.UserProfileId);
-            }
 
             return Ok(videos);
         }

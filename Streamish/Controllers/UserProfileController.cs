@@ -13,11 +13,9 @@ namespace Streamish.Controllers
     [ApiController]
     public class UserProfileController : ControllerBase
     {
-        private readonly IVideoRepository _videoRepository;
         private readonly IUserProfileRepository _userProfileRepository;
-        public UserProfileController(IVideoRepository videoRepository, IUserProfileRepository userProfileRepository)
+        public UserProfileController(IUserProfileRepository userProfileRepository)
         {
-            _videoRepository = videoRepository;
             _userProfileRepository = userProfileRepository;
         }
 
