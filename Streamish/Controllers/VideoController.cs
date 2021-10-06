@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Streamish.Repositories;
 using Streamish.Models;
+using System.Globalization;
 
 namespace Streamish.Controllers
 {
@@ -84,6 +85,18 @@ namespace Streamish.Controllers
         {
             _videoRepository.Delete(id);
             return NoContent();
+        }
+
+        [HttpGet("search")]
+        public IActionResult Search(string q, bool sortDesc)
+        {
+            return Ok(_videoRepository.Search(q, sortDesc));
+        }
+
+        [HttpGet("hottest")]
+        public IActionResult HotSearch(DateTime since)
+        {
+            return Ok(_videoRepository.HotSearch(since));
         }
     }
 }
