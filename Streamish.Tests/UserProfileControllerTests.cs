@@ -124,7 +124,7 @@ namespace Streamish.Tests
         }
 
         [Fact]
-        public void Put_Method_Updates_A_Video()
+        public void Put_Method_Updates_A_UserProfile()
         {
             // Arrange
             var testUserProfileId = 99;
@@ -157,7 +157,7 @@ namespace Streamish.Tests
         }
 
         [Fact]
-        public void Delete_Method_Removes_A_Video()
+        public void Delete_Method_Removes_A_UserProfile()
         {
             // Arrange
             var testUserProfileId = 99;

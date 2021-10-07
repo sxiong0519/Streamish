@@ -179,6 +179,27 @@ namespace Streamish.Tests
             Assert.Null(videoFromDb);
         }
 
+        [Fact]
+        public void Get_Returns_Search_Videos()
+        {
+            // Arrange 
+            var videoCount = 99;
+            var videos = CreateTestVideos(videoCount);
+
+            var repo = new InMemoryVideoRepository(videos);
+            var controller = new VideoController(repo);
+
+            // Act 
+            var result = controller.Search("Erlang the Movie", false);
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var actualVideos = Assert.IsType<List<Video>>(okResult.Value);
+
+            Assert.Equal(videoCount, actualVideos.Count);
+            Assert.Equal(videos, actualVideos);
+        }
+
         private List<Video> CreateTestVideos(int count)
         {
             var videos = new List<Video>();
