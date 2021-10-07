@@ -69,7 +69,7 @@ namespace Streamish.Tests.Mocks
 
         public List<Video> Search(string criterion, bool sortDescending)
         {
-            throw new NotImplementedException();
+            return _data;
         }
 
         public List<Video> GetAllWithComments()
