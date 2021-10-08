@@ -4,25 +4,16 @@ import { getAllVideos, searchVideos } from "../modules/videoManager";
 
 
 
-export const VideoSearch = ({setVideos}) => {
+const VideoSearch = ({setVideos}) => {
 
-    const handleClickSearch = () => {
-        searchVideos()
-    }
     
     return (
         <>
         Search:
-        <form action="/">
-            <input type="text" placeholder="Search.." value={setVideos.Title} onInput={e => setVideos(e.target.value)} name="search"/>
-            <button className="btns" onClick={
-                (event) => {
-                    event.preventDefault()
-                    handleClickSearch()
-                }
-            }>Submit
-            </button>
-        </form>
+        <input type="text" className="tipsearch" onKeyUp={(event) => 
+            searchVideos(event.target.value, true).then(v => setVideos(v))}  placeholder="Search for a post" />
         </>
-    )
-}
+    );
+};
+
+export default VideoSearch;
