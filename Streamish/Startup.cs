@@ -35,6 +35,11 @@ namespace Streamish
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Streamish", Version = "v1" });
             });
+            services.AddMvc()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault;
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
