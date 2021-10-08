@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Video from './Video';
 import { getAllVideos } from "../modules/videoManager";
 import VideoSearch from './VideoSearch';
+import VideoForm from "./VideoForm";
 
 const VideoList = () => {
   const [videos, setVideos] = useState([]);
@@ -16,6 +17,9 @@ const VideoList = () => {
 
   return (
     <div className="container">
+        <div className="videoform">
+            <VideoForm getVideos={getVideos}/>
+        </div>
         <div className="search">
             <VideoSearch setVideos={setVideos}/>
         </div>
