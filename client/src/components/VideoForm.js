@@ -1,65 +1,62 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from 'react';
+import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { useHistory, useParams } from 'react-router-dom';
-import { addVideo} from "../modules/videoManager";
+import { addVideo } from "../modules/videoManager";
 
-const VideoForm = ({getVideos}) => {
-    const [video, setVideo] = useState({})
-    const history = useHistory();
+const VideoForm = () => {
+  const emptyVideo = {
+    title: '',
+    description: '',
+    url: ''
+  };
+  const history = useHistory();
 
-    const handleControlledInputChange = (event) => {
-        const newVideo = { ...video }
-          newVideo[event.target.id] = event.target.value
-          setVideo(newVideo)
-        }
 
-        const handleClickSaveVideo = () => {
-            if (video.title === undefined || video.url === undefined) {
-                window.alert("Please complete the form")
-            } else {
-                const newvideo = {
-                    id: video.id,
-                    title: video.title,
-                    description: video.description,
-                    url: video.url
-              }
-              addVideo(newvideo)
-              }
-            }
+  const [video, setVideo] = useState(emptyVideo);
 
-    return (
-        <>
-        <form className="videoForm">
-            <h2 className="videoForm__title video_header">Video Form</h2>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="title">Title:</label>
-                    <input type="text" id="title" required autoFocus className="form-control" placeholder="Enter a video" value={video.title} onChange={handleControlledInputChange} />
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="description">Description</label>
-                    <input type="text" id="description" required autoFocus className="form-control" placeholder="Enter a video" value={video.description} onChange={handleControlledInputChange} />
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="url">Url</label>
-                    <input type="text" id="url" required autoFocus className="form-control" placeholder="Enter a video" value={video.url} onChange={handleControlledInputChange} />
-                </div>
-            </fieldset>
-            <div className="buttons"><button className="btns" onClick={
-                (event) => {
-                    event.preventDefault()
-                    handleClickSaveVideo()
-                    getVideos()
-                }
-            }>
-            Save video
-            </button> </div>
-        </form>
-        </>
-    )
+  const handleInputChange = (evt) => {
+    const value = evt.target.value;
+    const key = evt.target.id;
+
+    const videoCopy = { ...video };
+
+    videoCopy[key] = value;
+    setVideo(videoCopy);
+  };
+
+  const handleSave = (evt) => {
+    evt.preventDefault();
+
+    addVideo(video).then((p) => {
+        // Navigate the user back to the home route
+        history.push("/");
+    });
 }
+    
+
+  return (
+    <Form>
+      <FormGroup>
+        <Label for="title">Title</Label>
+        <Input type="text" name="title" id="title" placeholder="video title"
+          value={video.title}
+          onChange={handleInputChange} />
+      </FormGroup>
+      <FormGroup>
+        <Label for="url">URL</Label>
+        <Input type="text" name="url" id="url" placeholder="video link" 
+          value={video.url}
+          onChange={handleInputChange} />
+      </FormGroup>
+      <FormGroup>
+        <Label for="description">Description</Label>
+        <Input type="textarea" name="description" id="description"
+          value={video.description}
+          onChange={handleInputChange} />
+      </FormGroup>
+      <Button className="btn btn-primary" onClick={handleSave}>Submit</Button>
+    </Form>
+  );
+};
 
 export default VideoForm;

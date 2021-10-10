@@ -66,7 +66,7 @@ namespace Streamish.Repositories
                 {
                     cmd.CommandText = @"
                           SELECT Title, Description, Url, v.DateCreated AS VideoDateCreated, UserProfileId, Name, Email, ImageUrl, 
-                            c.DateCreated AS UserDateCreated
+                            u.DateCreated AS UserDateCreated
                             FROM Video v
                             LEFT JOIN UserProfile u ON v.UserProfileId = u.Id 
                            WHERE v.Id = @Id";
