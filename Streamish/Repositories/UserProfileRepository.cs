@@ -83,6 +83,7 @@ namespace Streamish.Repositories
                         {
                             profile.Videos.Add(new Video
                             {
+                                Id = DbUtils.GetInt(reader, "VideoId"),
                                 Title = DbUtils.GetString(reader, "Title"),
                                 Description = DbUtils.GetString(reader, "Description"),
                                 DateCreated = DbUtils.GetDateTime(reader, "VideoDateCreated"),
