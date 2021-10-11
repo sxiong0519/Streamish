@@ -9,23 +9,23 @@ const User = ({ user }) => {
     <Card >
       <p className="text-left px-2">Hello, {user.name}</p>
       <CardBody>
-          {user.videos.length > 0 ? <ul><li>
+          {user.videos.length > 0 ? <ul>{user.videos.map(v => <li>
         <iframe className="video"
-          src={user.videos.url}
+          src={v.url}
           title="YouTube video player"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen />
 
         <p>
-        <Link to={`/videos/${user.videos.id}`}>
-            <strong>{user.videos.title}</strong>
+        <Link to={`/videos/${v.id}`}>
+            <strong>{v.title}</strong>
         </Link>
 
         </p>
-        <p>{user.videos.description}</p>        
+        <p>{v.description}</p>        
         
-        </li></ul> : "no videos"}
+        </li>)}</ul> : "no videos"}
       </CardBody>   
     </Card>
     </>

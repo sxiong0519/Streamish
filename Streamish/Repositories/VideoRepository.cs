@@ -262,10 +262,13 @@ namespace Streamish.Repositories
                        up.Name, up.Email, up.DateCreated AS UserProfileDateCreated,
                        up.ImageUrl AS UserProfileImageUrl,
                         
-                       c.Id AS CommentId, c.Message, c.UserProfileId AS CommentUserProfileId
+                       c.Id AS CommentId, c.Message, c.UserProfileId AS CommentUserProfileId,
+                        
+                       upc.Name AS CommentUser
                   FROM Video v 
                        JOIN UserProfile up ON v.UserProfileId = up.Id
                        LEFT JOIN Comment c on c.VideoId = v.id
+                       LEFT JOIN UserProfile upc ON upc.Id = c.UserProfileId
                        WHERE v.Id = @id
             ";
                     cmd.Parameters.AddWithValue("@id", id);
@@ -304,7 +307,11 @@ namespace Streamish.Repositories
                                 Id = DbUtils.GetInt(reader, "CommentId"),
                                 Message = DbUtils.GetString(reader, "Message"),
                                 VideoId = DbUtils.GetInt(reader, "VideoId"),
-                                UserProfileId = DbUtils.GetInt(reader, "CommentUserProfileId")
+                                UserProfileId = DbUtils.GetInt(reader, "CommentUserProfileId"),
+                                UserProfile = new UserProfile
+                                {
+                                    Name = DbUtils.GetString(reader, "CommentUser")
+                                }
                             });
                         };
                     }

@@ -25,10 +25,6 @@ const Video = ({ video }) => {
 
         </p>
         <p>{video.description}</p>        
-        <div>
-            <h3>Comments</h3>        
-            {video.comments.length > 0 ? <ul>{video.comments.map(c => <li>{c.userProfile.name}: {c.message}</li>)}</ul> : "No comment(s)"}
-        </div>
       </CardBody>   
     </Card>
     </>
